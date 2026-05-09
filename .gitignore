@@ -4,10 +4,17 @@ __pycache__/
 *$py.class
 *.so
 .Python
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
+
+# 构建产物
 build/
-develop-eggs/
 dist/
-downloads/
+*.egg-info/
 eggs/
 .eggs/
 lib/
@@ -16,30 +23,8 @@ parts/
 sdist/
 var/
 wheels/
-*.egg-info/
 .installed.cfg
 *.egg
-
-# Virtual Environment
-.venv/
-venv/
-ENV/
-env/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Project specific
-.workbuddy/
-archive/
-
-# Logs
-*.log
 
 # macOS
 .DS_Store
@@ -48,19 +33,36 @@ archive/
 Icon
 ._*
 
-# PyInstaller
-*.spec
-!maincharacter.spec
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Distribution
-*.dmg
-*.pkg
-*.app
+# 日志
+*.log
 
-# Temporary files
+# 临时文件
 *.tmp
 *.bak
 *.backup
+*~
 
-# User data (don't commit user's personal data)
+# 工作记录
+.workbuddy/
+
+# 用户数据（不提交用户个人数据）
 .sedentary_reminder/
+
+# PyInstaller（已废弃，保留 spec 文件在 archive/）
+# *.spec 文件已移到 archive/ 目录
+
+# 发布文件（不提交到 git，使用 GitHub Releases）
+# releases/ 目录中的 .zip 文件不提交
+releases/**/*.zip
+releases/**/*.dmg
+releases/**/*.pkg
+
+# 注意：releases/ 目录结构本身需要提交，只是不提交二进制文件
+!releases/.gitkeep
+!releases/*/.gitkeep

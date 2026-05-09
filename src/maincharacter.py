@@ -27,17 +27,16 @@ CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 STATS_FILE = os.path.join(CONFIG_DIR, "stats.json")
 
 # --- 日志配置 ---
-LOG_DIR = os.path.expanduser("~/Library/Logs/久坐提醒助手")
-os.makedirs(LOG_DIR, exist_ok=True)
-LOG_FILE = os.path.join(LOG_DIR, "app.log")
+# 打包后的 .app 在沙盒中运行，没有文件写入权限
+# 只使用控制台输出，不写文件
+LOG_FILE = os.path.join(CONFIG_DIR, "app.log")  # 仅用于显示路径
 
-# 配置日志
+# 配置日志（只输出到控制台）
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(LOG_FILE, encoding='utf-8'),
-        logging.StreamHandler()
+        logging.StreamHandler()  # 只用控制台输出
     ]
 )
 logger = logging.getLogger(__name__)

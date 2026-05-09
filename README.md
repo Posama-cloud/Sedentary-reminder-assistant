@@ -35,12 +35,26 @@
 
 ## 快速开始
 
-### 方式一：从源码运行（推荐）
+### 方式一：一键安装（推荐）
+
+```bash
+# 1. 下载项目
+git clone https://github.com/Posama-cloud/Sedentary-reminder-assistant.git
+cd Sedentary-reminder-assistant
+
+# 2. 运行安装脚本
+chmod +x 一键安装.sh
+./一键安装.sh
+```
+
+安装完成后，双击桌面的「久坐提醒助手.command」即可启动。
+
+### 方式二：手动安装
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/Posama-cloud/sedentary-reminder.git
-cd sedentary-reminder
+git clone https://github.com/Posama-cloud/Sedentary-reminder-assistant.git
+cd Sedentary-reminder-assistant
 
 # 2. 创建虚拟环境
 python3 -m venv .venv
@@ -53,22 +67,34 @@ pip install -r requirements.txt
 python maincharacter.py
 ```
 
-### 方式二：一键安装脚本
-
-```bash
-chmod +x scripts/install.sh
-./scripts/install.sh
-```
-
-这个脚本会自动：
-- 打包成独立的 .app 应用
-- 复制到应用程序目录
-- 配置开机自启动
-- 引导授予摄像头权限
-
 ### 方式三：下载打包版本
 
-前往 [Releases](https://github.com/Posama-cloud/sedentary-reminder/releases) 页面下载最新版本。
+1. 下载最新版本的 `久坐提醒助手_v1.1.zip`
+2. 解压后双击 `久坐提醒助手.app` 即可运行
+3. **首次运行时会请求摄像头权限**，这是为了检测您是否在电脑前，请点击"允许"
+   - 应用仅在本地使用摄像头进行人脸检测
+   - 不会上传或保存任何图像数据
+4. 如果 macOS 提示"无法验证开发者"，请按以下步骤操作：
+   - 打开"系统偏好设置" → "安全性与隐私"
+   - 点击"仍要打开"按钮
+   - 或者在终端执行：`xattr -cr /path/to/久坐提醒助手.app`
+
+### 方式四：自己打包（开发者）
+
+如果你想自己打包应用：
+
+```bash
+# 1. 安装打包工具
+pip install py2app
+
+# 2. 一键打包
+./build.sh
+
+# 3. 运行打包后的应用
+open dist/久坐提醒助手.app
+```
+
+详细说明请查看 [py2app 打包说明](docs/py2app打包说明.md)
 
 ---
 
@@ -80,9 +106,11 @@ chmod +x scripts/install.sh
    - 运行后会在菜单栏显示图标
    - 首次启动会显示欢迎提示
 
-2. **授予权限**
-   - 系统会请求摄像头权限，点击"允许"
-   - 如果没有弹出，请前往"系统设置 > 隐私与安全性 > 摄像头"手动授权
+2. **授予摄像头权限（重要）**
+   - 系统会弹出摄像头权限请求，**必须点击"允许"**
+   - 权限说明：应用需要访问摄像头来检测您是否在电脑前，以便准确提醒您休息
+   - **隐私保证**：摄像头仅用于本地检测，不会上传或保存任何图像
+   - 如果没有弹出权限请求，请前往"系统设置 > 隐私与安全性 > 摄像头"手动授权
 
 3. **设置提醒间隔**
    - 点击菜单栏图标
@@ -256,7 +284,7 @@ rm -rf ~/Library/Logs/久坐提醒助手
 - **Python 3** - 主要编程语言
 - **OpenCV** - 摄像头和图像处理
 - **rumps** - macOS 菜单栏 UI 框架
-- **PyInstaller** - 打包成独立应用
+- **py2app** - macOS 专用打包工具
 
 ---
 
